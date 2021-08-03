@@ -1,0 +1,36 @@
+version: "3.4"
+services:
+    web-server:
+        container_name: web-server
+        image: jaskeerat/webserver:HPA-v1
+        build:
+            context: ./web-server/
+        environment:
+            - "PORT=3000"
+        ports:
+            - 3000:3000
+        networks:
+            - autoscaling
+    worker:
+        container_name: worker
+        image: jaskeerat/worker:HPA-v1
+        build:
+            context: ./worker/
+        environment:
+            - "RABBIT_USERNAME=guest"
+            - "RABBIT_PASSWORD=guest"
+            - "RABBIT_HOST=rabbit-mq"
+            - "RABBIT_PORT=5672"
+        networks:
+            - autoscaling
+    rabbit-mq:
+        container_name: rabbit-mq
+        image: rabbitmq:3-management
+        ports:
+            - 15672:15672
+            - 5672:5672
+        networks:
+            - autoscaling
+networks:
+    autoscaling:
+        name: autoscaling
