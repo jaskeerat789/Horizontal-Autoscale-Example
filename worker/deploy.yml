@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: jaskeerat/worker:HPA-v1
+        env:
+          - name: RABBIT_USERNAME
+            value: guest
+          - name: RABBIT_PASSWORD
+            value: guest
+          - name: RABBIT_HOST
+            value: rabbit-mq
+          - name: RABBIT_PORT
+            value: "5672"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

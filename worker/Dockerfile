@@ -2,10 +2,11 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
-COPY package.json /app/package.json
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
 RUN npm install -- silent 
 
-COPY app.js /app/app.js
+COPY app.js app.js
 
-CMD ["npm","run"]
+CMD ["node","app.js"]
