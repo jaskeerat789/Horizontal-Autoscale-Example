@@ -1,9 +1,16 @@
 package main
 
 import (
+	"os"
+
 	"github.com/hashicorp/go-hclog"
 	"github.com/streadway/amqp"
 )
+
+var rabbit_user = os.Getenv("RABBIT_USERNAME")
+var rabbit_password = os.Getenv("RABBIT_PASSWORD")
+var rabbit_port = os.Getenv("RABBIT_PORT")
+var rabbit_host = os.Getenv("RABBIT_HOST")
 
 type RabbitMQClient struct {
 	l    hclog.Logger
@@ -16,8 +23,9 @@ func NewClient() *RabbitMQClient {
 	log := hclog.New(&hclog.LoggerOptions{
 		Name: "RabbitMQ",
 	})
-
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	url:= "amqp://" + rabbit_user + ":" + rabbit_password + "@" + rabbit_host + ":" + rabbit_port + "/"
+	println(url)
+	conn, err := amqp.Dial(url)
 	failOnError(log, err, "Error establishing connection with RabbitMQ")
 
 	ch, err := conn.Channel()
