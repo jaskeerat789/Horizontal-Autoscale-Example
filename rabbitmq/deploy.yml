@@ -32,9 +32,21 @@ spec:
   selector:
     app: rabbit-mq
   ports:
-  - port: 5672
-    targetPort: 5672
-    name: "rabbit"
-  - port: 15672
-    targetPort: 15672
-    name: "rabbit-mgmt"
+    - port: 5672
+      targetPort: 5672
+      name: "rabbit"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-mq-mgmt
+spec:
+  type: NodePort
+  selector:
+    app: rabbit-mq
+  ports:
+    - port: 15672
+      targetPort: 15672
+      nodePort: 30011
+      name: "rabbit-mgmt"
