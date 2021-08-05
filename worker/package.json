@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.8.0",
-    "cli-progress": "^3.9.0"
+    "amqplib": "^0.8.0"
   }
 }
