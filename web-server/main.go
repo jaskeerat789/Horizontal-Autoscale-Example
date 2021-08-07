@@ -11,6 +11,7 @@ import (
 	goHandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/hashicorp/go-hclog"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var port = ":" + os.Getenv("PORT")
@@ -23,6 +24,9 @@ func main() {
 
 	// create a new server mux
 	sm := mux.NewRouter()
+	sm.Use(PrometheusMiddleware)
+
+	sm.Path("/prometheus").Handler(promhttp.Handler())
 
 	// register handlers
 	controller := NewController()
