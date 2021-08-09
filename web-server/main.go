@@ -26,7 +26,7 @@ func main() {
 	sm := mux.NewRouter()
 	sm.Use(PrometheusMiddleware)
 
-	sm.Path("/prometheus").Handler(promhttp.Handler())
+	sm.Path("/metrics").Handler(promhttp.Handler())
 
 	// register handlers
 	controller := NewController()
