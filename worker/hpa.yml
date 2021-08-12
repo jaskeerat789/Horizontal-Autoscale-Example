@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker-scaler
+spec:
+  minReplicas: 1
+  maxReplicas: 10
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker
+  metrics:
+    - type: Pods
+      pods:
+        metric:
+          name: "rabbitmq_queue_length"
+        target:
+          type: Value
+          averageValue: "20"
