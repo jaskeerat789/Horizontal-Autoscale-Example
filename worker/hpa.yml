@@ -10,10 +10,10 @@ spec:
     kind: Deployment
     name: worker
   metrics:
-    - type: Pods
-      pods:
+    - type: External
+      external:
         metric:
-          name: "rabbitmq_queue_length"
+          name: rabbitmq_queue_length
         target:
           type: Value
-          averageValue: "20"
+          value: "20"
