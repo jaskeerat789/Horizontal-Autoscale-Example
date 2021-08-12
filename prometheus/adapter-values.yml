@@ -19,7 +19,7 @@ priorityClassName: ""
 # Url to access prometheus
 prometheus:
   # Value is templated
-  url: http://prometheus-kube-prometheus-prometheus
+  url: http://prometheus-kube-prometheus-prometheus.default.svc
   port: 9090
   path: ""
 
@@ -70,14 +70,14 @@ resources: {}
 
 rules:
   default: true
-  custom: []
-# - seriesQuery: '{__name__=~"^some_metric_count$"}'
-#   resources:
-#     template: <<.Resource>>
-#   name:
-#     matches: ""
-#     as: "my_custom_metric"
-#   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+  custom:
+  - seriesQuery: 'rabbitmq_queue_messages{queue="Orders"}'
+    resources:
+      template: <<.Resource>>
+    name:
+      matches: ""
+      as: "rabbitmq_queue_length"
+    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   # Mounts a configMap with pre-generated rules for use. Overrides the
   # default, custom, external and resource entries
   existing:
