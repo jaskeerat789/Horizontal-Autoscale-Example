@@ -1,7 +1,5 @@
 var amqp = require('amqplib/callback_api')
 
-
-
 amqp.connect(`amqp://${process.env.RABBIT_USERNAME}:${process.env.RABBIT_PASSWORD}@${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`, (err, connection) => {
     if (err) {
         throw err
