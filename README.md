@@ -4,7 +4,9 @@ In this project, I try to implement Horizontal Pod Autoscaler[HPA](https://kuber
 We start by creating a [golang](https://golang.org/) web-server that publishes messages to a [rabbitmq queue](https://www.rabbitmq.com/). These messages are then consumed by a [NodeJS](https://nodejs.org/en/) worker. The worker takes 5s to consume 1 message, representing artificial time to process a request. We then try to scale the worker pods on the basis of the rabbitmq queue length. We'll discuss the entire infra in the upcoming section and role of each part in detail. 
 
 # Demo
-
+<div style="text-align:center">
+<img src="./assets/demo.gif"/>
+</div>
 
 # Architecture
 <div style="text-align:center">
