@@ -81,14 +81,14 @@ rules:
   # Mounts a configMap with pre-generated rules for use. Overrides the
   # default, custom, external and resource entries
   existing:
-  external: []
-# - seriesQuery: '{__name__=~"^some_metric_count$"}'
-#   resources:
-#     template: <<.Resource>>
-#   name:
-#     matches: ""
-#     as: "my_external_metric"
-#   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+  external:
+  - seriesQuery: 'rabbitmq_queue_messages{queue="Orders"}'
+    resources:
+      template: <<.Resource>>
+    name:
+      matches: ""
+      as: "rabbitmq_queue_length"
+    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   resource: {}
 #   cpu:
 #     containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>, container!=""}[3m])) by (<<.GroupBy>>)
